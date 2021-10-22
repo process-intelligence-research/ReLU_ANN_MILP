@@ -1,0 +1,6 @@
+matplotlib
+tqdm
+tensorflow
+numpy
+pyomo
+gurobipy
