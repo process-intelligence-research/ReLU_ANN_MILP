@@ -20,7 +20,7 @@ After installing, you can use the examples provided in the `examples/` folder to
 Alternatively, you can clone the github repository:
 
 ```sh
-git clone https://git.rwth-aachen.de/avt.svt/public/milp_formulation_for_relu_anns.git
+git clone https://github.com/ChemEngAI/ReLU_ANN_MILP.git
 ```
 You can install all requirements from the project root folder by calling:
 
