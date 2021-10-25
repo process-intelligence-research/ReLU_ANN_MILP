@@ -2,7 +2,7 @@ import tensorflow as tf
 import numpy as np
 import pyomo.environ as pyo
 
-from relumip.ann_model import AnnModel
+from relumip import AnnModel
 from relumip.utils.visualization import plot_results_2d
 
 # Load the trained tensorflow model which will be embedded into the optimization problem.

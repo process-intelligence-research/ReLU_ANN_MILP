@@ -1,7 +1,7 @@
 import tensorflow as tf
 import numpy as np
 import gurobipy as grb
-from relumip.ann_model import AnnModel
+from relumip import AnnModel
 
 from relumip.utils.visualization import plot_results_2d
 
