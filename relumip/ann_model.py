@@ -192,7 +192,7 @@ class AnnModel:
         -------
 
         """
-        if len(tf_model.layers < 2):
+        if len(tf_model.layers) < 2:
             print('Warning: The tensorflow model does not appear to contain any hidden layers. This will lead to undefined behaviour.')
         for idx, layer in enumerate(tf_model.layers[:-1]):
             if not isinstance(layer, tf.keras.layers.Dense):
