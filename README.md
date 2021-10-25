@@ -31,6 +31,7 @@ pip install -r requirements.txt
 Two `jupyter` notebooks describing the use of the package are supplied in the `examples` folder. There, an MIP formulation of a ReLU ANN trained on a nonliner, nonconvex function is used to find the global minimum of the network response surface.
 
 ## References
+Grimstad, B., Andersson, H. (2019). [ReLU networks as surrogate models in mixed-integer linear programs](https://doi.org/10.1016/j.compchemeng.2019.106580). *Computers & Chemical Engineering* (Volume 131, 106580).<br><br>
 
 
 

@@ -10,9 +10,9 @@ class InterfaceFactory:
 
     def create(self, modeling_language: str, name: str):
         if modeling_language in self._supported_model_types:
-            if modeling_language is 'GUROBI':
+            if modeling_language == 'GUROBI':
                 return GurobiModelingInterface(name)
-            elif modeling_language is 'PYOMO':
+            elif modeling_language == 'PYOMO':
                 return PyomoModelingInterface(name)
         else:
             raise ValueError('Modeling language' + modeling_language + 'is not supported. See '

@@ -26,8 +26,8 @@ model.ann.Output = pyo.Var(bounds=(-10000, 10000), within=pyo.Reals)
 input_vars = [model.ann.Input1, model.ann.Input2]
 output_vars = [model.ann.Output]
 
-# A solver instance has to be defined for bound tightening.
-solver = pyo.SolverFactory('gurobi')
+# A solver instance has to be defined for bound tightening. Make sure that an appropriate MIP solver is installed.
+solver = pyo.SolverFactory('glpk')
 
 # Now the AnnModel instance can be created.
 ann_model = AnnModel(tf_model=tf_model, modeling_language='PYOMO')

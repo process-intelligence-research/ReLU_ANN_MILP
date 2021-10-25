@@ -4,6 +4,7 @@ from pyomo.core.expr.numvalue import RegisterNumericType
 
 import numpy as np
 import tqdm
+from typing import List
 
 from ..utils.storage import AnnParameters
 from .modeling_interface import ModelingInterface
@@ -31,25 +32,32 @@ class PyomoModelingInterface(ModelingInterface):
         self._solver = None
         self._use_parent_model = False
 
-    def connect_network_input(self, input_vars: [pyo.Var], opt_model: pyo.Block):
+    def connect_network_input(self, opt_model: pyo.Block, input_vars: List[pyo.Var]):
         """Assigns the input variables to the ANN and the parent model where the ANN is to be embedded into.
 
         Parameters
         ----------
         input_vars: List of pyomo.Var describing the input vector to the network. Have to be defined in the parent model
         opt_model: Parent optimization model containing the input_vars
-        """
+        """ 
+        for v in input_vars:
+            assert(v.parent_block() == opt_model)
         self._ann_model = opt_model
         self._input = input_vars
 
-    def connect_network_output(self, opt_model: pyo.Block, output_vars: [pyo.Var]):
+    def connect_network_output(self, opt_model: pyo.Block, output_vars: List[pyo.Var]):
         """Assigns the output variables of the ANN. Must be defined in same Block as the input variables.
 
         Parameters
         ----------
-        opt_model
+        opt_model: Parent optimization model containing the output_vars
         output_vars: List of pyo.Var describing the output (vector) of the ANN.
         """
+        for v in output_vars:
+            assert(v.parent_block() == self._ann_model)
+        if(opt_model != self._ann_model):
+            print('Warning: The specified parent block is incorrect. This can be indicative of a modeling error.')
+            
         self._output = output_vars
 
     def embed_network_formulation(self, opt_model: pyo.Block, ann_param: AnnParameters,
@@ -95,13 +103,14 @@ class PyomoModelingInterface(ModelingInterface):
         model: Parent optimization model.
         ann_param: AnnParameters
         """
-        self._init_vars_bigm(model, ann_param)
-        t = tqdm.tqdm(total=np.sum(ann_param.nodes_per_layer[2:-1]))
+        self._init_vars_bigm(model, ann_param)       
+        t = tqdm.tqdm(total=np.sum(ann_param.nodes_per_layer[2:]))
         for layerIdx in range(1, ann_param.n_layers):
             # TODO: Parallelize at deep levels of network
-            if (1 < layerIdx) and (self._bound_tightening_strategy != ''):
+            if (1 < layerIdx):
                 for nodeIdx in range(ann_param.nodes_per_layer[layerIdx]):
-                    self._solve_subproblem(layerIdx, nodeIdx, model, ann_param)
+                    if (self._bound_tightening_strategy != ''):
+                        self._solve_subproblem(layerIdx, nodeIdx, model, ann_param)
                     t.set_description('Evaluating node ({},{})'.format(layerIdx, nodeIdx))
                     t.update(1)
             if layerIdx < ann_param.n_layers - 1:
@@ -148,7 +157,6 @@ class PyomoModelingInterface(ModelingInterface):
             self._ann_model.nodes[0, i].x = pyo.Var(within=self._input[i].domain, bounds=(self._input[i].lb,
                                                                                           self._input[i].ub))
 
-    # noinspection PyMethodMayBeStatic
     def _add_hidden_node_formulation_bigm(self, layer_idx: int, node_idx: int, model: pyo.Block,
                                           ann_param: AnnParameters):
         """Adds Big-M MIP formulation for each node. For example node y = relu(x) = max(w*x + b,0):
@@ -211,13 +219,12 @@ class PyomoModelingInterface(ModelingInterface):
 
         """
         RegisterNumericType(float)
-        w = ann_param.weights[layer_idx - 1][:, node_idx]
         linexp = sum(self._ann_model.nodes[layer_idx - 1, k].x * ann_param.weights[layer_idx - 1][k, node_idx] for k in
                      range(ann_param.nodes_per_layer[layer_idx-1])) + ann_param.bias[layer_idx - 1][node_idx]
 
         model.del_component(model.obj)
         model.obj = pyo.Objective(expr=linexp, sense=pyo.minimize)
-        # TODO: write callback that stops solver as soon as the incumbent is > 0
+        # TODO: write callback that stops solver as soon as the lower bound is > 0
 
         if self._bound_tightening_strategy == 'LP':
             for idx in range(1, layer_idx - 1):
@@ -285,7 +292,7 @@ class PyomoModelingInterface(ModelingInterface):
                 var == self._ann_model.nodes[0, node_idx].x)
 
     @staticmethod
-    def get_variable_bounds(opt_vars: [pyo.Var]):
+    def get_variable_bounds(opt_vars: List[pyo.Var]):
         """Queries bounds for Pyomo optimization variables.
 
         Parameters
@@ -311,9 +318,9 @@ class PyomoModelingInterface(ModelingInterface):
         obj : Object to be checked.
         type_str : Type descriptor for check.
         """
-        if type_str is "model":
+        if type_str == "model":
             assert (isinstance(obj, pyo.ConcreteModel) or isinstance(obj, pyo.Block))
-        elif type_str is "variable":
+        elif type_str == "variable":
             assert (isinstance(obj, pyo.Var))
 
 

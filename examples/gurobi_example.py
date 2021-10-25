@@ -6,7 +6,7 @@ from relumip.ann_model import AnnModel
 from relumip.utils.visualization import plot_results_2d
 
 # Load the trained tensorflow model which will be embedded into the optimization problem
-tf_model = tf.keras.models.load_model('3_0_peaks_3x10.h5')
+tf_model = tf.keras.models.load_model('data/peaks_3x10.h5')
 
 # Create a pyomo model into which the ANN will be embedded.
 opt_model = grb.Model()

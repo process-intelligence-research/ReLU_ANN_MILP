@@ -1,6 +1,7 @@
-matplotlib
-tqdm
-tensorflow
-numpy
-pyomo
-gurobipy
+gurobipy==9.1.2
+matplotlib==3.4.3
+numpy==1.19.5
+Pyomo==6.1.2
+setuptools==58.0.4
+tensorflow==2.6.0
+tqdm==4.62.3

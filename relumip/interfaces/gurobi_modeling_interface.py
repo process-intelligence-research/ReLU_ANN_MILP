@@ -3,6 +3,7 @@ import gurobipy as grb
 from gurobipy import GRB
 import tqdm
 import time
+from typing import List
 
 from ..utils.storage import AnnParameters
 from .modeling_interface import ModelingInterface
@@ -31,7 +32,7 @@ class GurobiModelingInterface(ModelingInterface):
         self._node_time_limit = None
         self._use_parent_model = False
 
-    def connect_network_input(self, opt_model: grb.Model, input_vars: [grb.Var]):
+    def connect_network_input(self, opt_model: grb.Model, input_vars: List[grb.Var]):
         """Assigns the input variables of the ANN and the parent model where the ANN is to be embedded into.
 
         Parameters
@@ -42,7 +43,7 @@ class GurobiModelingInterface(ModelingInterface):
         self._parent_model = opt_model
         self._input = input_vars
 
-    def connect_network_output(self, opt_model: grb.Model, output_vars: [grb.Var]):
+    def connect_network_output(self, opt_model: grb.Model, output_vars: List[grb.Var]):
         """Assigns the output variables of the ANN. Must be defined in the same parent model as the input variables.
 
         Parameters
@@ -50,8 +51,9 @@ class GurobiModelingInterface(ModelingInterface):
         opt_model: Parent optimization model
         output_vars: List of grb.Var describing the output (vector) of the ANN.
         """
+        # rigorous test possible with Gurobi interface?
+        assert(opt_model is self._parent_model)
         self._output = output_vars
-        assert (opt_model is self._parent_model)
 
     def embed_network_formulation(self, opt_model: grb.Model, ann_param: AnnParameters, mip_formulation: str,
                                   bound_tightening_strategy: str, node_time_limit: float,
@@ -95,15 +97,16 @@ class GurobiModelingInterface(ModelingInterface):
         """
         model.setParam(GRB.Param.LogToConsole, 0)
         self._init_vars_bigm(model, ann_param)
-        t = tqdm.tqdm(total=np.sum(ann_param.nodes_per_layer[2:-1]))
+        t = tqdm.tqdm(total=np.sum(ann_param.nodes_per_layer[2:]))
         for layerIdx in range(1, ann_param.n_layers):
             # TODO: Parallelize at deep levels of network
-            if (1 < layerIdx) and (self._bound_tightening_strategy != ''):
+            if (1 < layerIdx):
                 for nodeIdx in range(ann_param.nodes_per_layer[layerIdx]):
-                    self._solve_subproblem(layerIdx, nodeIdx, model, ann_param)
+                    if (self._bound_tightening_strategy != ''):
+                        self._solve_subproblem(layerIdx, nodeIdx, model, ann_param)
                     t.set_description('Evaluating node ({},{})'.format(layerIdx, nodeIdx))
                     t.update(1)
-            if layerIdx < ann_param.n_layers -1:
+            if layerIdx < ann_param.n_layers - 1:
                 for nodeIdx in range(ann_param.nodes_per_layer[layerIdx]):
                     self._add_hidden_node_formulation_bigm(layerIdx, nodeIdx, model, ann_param)
             else:
@@ -307,7 +310,7 @@ class GurobiModelingInterface(ModelingInterface):
 
 
     @staticmethod
-    def get_variable_bounds(opt_vars: [grb.Var]):
+    def get_variable_bounds(opt_vars: List[grb.Var]):
         """Queries bounds for Gurobi optimization variables.
 
         Parameters

@@ -16,9 +16,9 @@ setup(
     description="Embed tensorflow ReLU neural networks in MIP optimization problems.",
     long_description=README,
     long_description_content_type="text/markdown",
-    url="https://git.rwth-aachen.de/avt.svt/public/milp_formulation_for_relu_anns",
+    url="https://github.com/ChemEngAI/ReLU_ANN_MILP",
     author="Laurens Lueg, Artur Schweidtmann",
-    author_email="artur.schweidtmann@avt.rwth-aachen.de",
+    author_email="A.Schweidtmann@tudelft.nl.de",
     license="Eclipse",
     classifiers=[
         "License :: OSI Approved :: Eclipse Public License 2.0 (EPL-2.0)",
@@ -27,5 +27,5 @@ setup(
     ],
     packages=find_packages(),
     include_package_data=True,
-    install_requires=["numpy", "tensorflow", "tqdm", "matplotlib", ]
+    install_requires=["numpy", "tensorflow", "tqdm", "matplotlib", "pyomo", "gurobipy"]
 )

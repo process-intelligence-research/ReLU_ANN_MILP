@@ -192,10 +192,12 @@ class AnnModel:
         -------
 
         """
+        if len(tf_model.layers < 2):
+            print('Warning: The tensorflow model does not appear to contain any hidden layers. This will lead to undefined behaviour.')
         for idx, layer in enumerate(tf_model.layers[:-1]):
             if not isinstance(layer, tf.keras.layers.Dense):
                 raise Exception('Layer ' + str(idx) + ' of tensorflow model is not dense.')
-            if layer.activation.__name__ is not 'relu':
+            if layer.activation.__name__ != 'relu':
                 raise Exception('Layer ' + str(idx) + ' of tensorflow model does not have ReLU activation')
 
     def _node_redundancy_check(self) -> None:
