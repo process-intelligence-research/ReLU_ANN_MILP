@@ -1,7 +1,7 @@
 # reluMIP
 > Embed ReLU neural networks into mixed-integer programs.
 
-![](docs/logo.PNG)
+![](docs/reluMIP_methodology.svg)
 
 ## About
 With this package, you can generate mixed-integer linear programming (MIP) models of trained artifical neural networks (ANNs) using the rectified liner unit (ReLU) activation function. At the moment, only `tensorflow` sequential models are supported. Interfaces to either the `Pyomo` or `Gurobi` modelling environments are offered.
