@@ -27,7 +27,7 @@ You can install all requirements from the project root folder by calling:
 ```sh
 pip install -r requirements.txt
 ```
-You can add the root folder of the repositors to your `PYTHON_PATH`, so that the package can be accessed from anywhere. 
+You can add the root folder of the repository to your `PYTHON_PATH`, so that the package can be accessed from anywhere. 
 
 Note that in order to use the package, a compatible solver has to be installed. This can be [*Gurobi*](https://www.gurobi.com/) (with a valid license) or any MIP solver compatible with *Pyomo* (we recommend [*glpk*](https://www.gnu.org/software/glpk/)). In our experience, the best performance is obtained when using the *Gurobi* interface.
 
