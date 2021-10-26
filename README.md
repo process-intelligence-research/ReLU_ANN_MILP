@@ -34,7 +34,7 @@ Note that in order to use the package, a compatible solver has to be installed. 
 ## Example usages
 Two `jupyter` notebooks describing the use of the package are supplied in the `examples/` folder in the [`reluMIP` Git repository](https://github.com/ChemEngAI/ReLU_ANN_MILP). There, an MIP formulation of a ReLU ANN trained on a nonliner, nonconvex function is used to find the global minimum of the network response surface. If you installed the package through `pip`, you can simply download the example files that you are interested in.
 
-## Related work
+## Related work on NLP formulations of ANNs
 In this tool, ReLU ANNs are formulated as MILPs. Notably, ANNs can also be formulated as nonlinear problems (NLPs) and solved through deterministic gloabl optimization (Schweidtmann and Mitsos (2019)). Please visit the [MeLOn toolbox](https://git.rwth-aachen.de/avt-svt/public/MeLOn) for more information.
 
 ## References
