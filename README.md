@@ -37,6 +37,21 @@ Two `jupyter` notebooks describing the use of the package are supplied in the `e
 ## Related work on NLP formulations of ANNs
 In this tool, ReLU ANNs are formulated as MILPs. Notably, ANNs can also be formulated as nonlinear problems (NLPs) and solved through deterministic gloabl optimization (Schweidtmann and Mitsos (2019)). Please visit the [MeLOn toolbox](https://git.rwth-aachen.de/avt-svt/public/MeLOn) for more information.
 
+## How to cite this work
+
+Please cite [our Zenodo DOI]((https://doi.org/10.5281/zenodo.5601907)) if you use this code:
+
+```
+@software{reluMIP.2021,
+  title={reluMIP: Open Source Tool for MILP Optimization of ReLU Neural Networks},
+  author={Lueg, Laurens and Grimstad, Bjarne and Mitsos, Alexander and Schweidtmann, Artur M.},
+  year={2021},
+  doi={https://doi.org/10.5281/zenodo.5601907},
+  url = {https://github.com/ChemEngAI/ReLU_ANN_MILP},
+  version = {1.0.0}
+}
+```
+
 ## References
 Grimstad, B., Andersson, H. (2019). [ReLU networks as surrogate models in mixed-integer linear programs](https://doi.org/10.1016/j.compchemeng.2019.106580). *Computers & Chemical Engineering* (Volume 131, 106580).<br><br>
 
