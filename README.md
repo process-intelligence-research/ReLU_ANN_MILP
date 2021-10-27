@@ -6,7 +6,7 @@
 ## About
 With this package, you can generate mixed-integer linear programming (MIP) models of trained artificial neural networks (ANNs) using the rectified liner unit (ReLU) activation function. At the moment, only [*TensorFlow*](https://www.tensorflow.org/) sequential models are supported. Interfaces to either the [*Pyomo*](https://www.pyomo.org/) or [*Gurobi*](https://www.gurobi.com/) modelling environments are offered.
 
-ReLU ANNs can be used to approximate complex functions from data. In order to embed these functions into optimization problems, strong formulations of the network are needed. This package employs progressive bound tightening procedures to produce MIP encodings for ReLU networks. This allows the user to embed complex and nonlinear functions into mixed-integer programs. Note that the training of ReLU ANNs is not part of this package and has to be done by the user beforehand. A number of illustrative examples are provided to showcase the functionality of this package. For more dtailed information, see the slide show in the `docs/` folder.
+ReLU ANNs can be used to approximate complex functions from data. In order to embed these functions into optimization problems, strong formulations of the network are needed. This package employs progressive bound tightening procedures to produce MIP encodings for ReLU networks. This allows the user to embed complex and nonlinear functions into mixed-integer programs. Note that the training of ReLU ANNs is not part of this package and has to be done by the user beforehand. A number of illustrative examples are provided to showcase the functionality of this package. For more detailed information, see the slide show in the `docs/` folder of the [`reluMIP`](https://github.com/ChemEngAI/ReLU_ANN_MILP) Git repository.
 
 
 ## Installation
@@ -32,14 +32,14 @@ You can add the root folder of the repository to your `PYTHON_PATH`, so that the
 Note that in order to use the package, a compatible solver has to be installed. This can be *Gurobi* (with a valid license) or any MIP solver compatible with *Pyomo* (we recommend [*glpk*](https://www.gnu.org/software/glpk/)). In our experience, the best performance is obtained when using the *Gurobi* interface.
 
 ## Example usages
-Two `jupyter` notebooks describing the use of the package are supplied in the `examples/` folder of the [`reluMIP`](https://github.com/ChemEngAI/ReLU_ANN_MILP) Git repository. There, an MIP formulation of a ReLU ANN - trained on a nonliner, nonconvex function - is used to find the global minimum of the network response surface. If you installed the package through `pip`, you can simply download the example files that you are interested in.
+Two `jupyter` notebooks describing the use of the package are supplied in the `examples/` folder of the [Git repository](https://github.com/ChemEngAI/ReLU_ANN_MILP). There, an MIP formulation of a ReLU ANN - trained on a nonliner, nonconvex function - is used to find the global minimum of the network response surface. If you installed the package through `pip`, you can simply download the example files that you are interested in.
 
 ## Related work on NLP formulations of ANNs
 In this tool, ReLU ANNs are formulated as MILPs. Notably, ANNs can also be formulated as nonlinear problems (NLPs) and solved through deterministic gloabl optimization (Schweidtmann and Mitsos (2019)). Please visit the [MeLOn toolbox](https://git.rwth-aachen.de/avt-svt/public/MeLOn) for more information.
 
 ## How to cite this work
 
-Please cite [our Zenodo DOI]((https://doi.org/10.5281/zenodo.5601907)) if you use this code:
+Please cite [our Zenodo DOI](https://doi.org/10.5281/zenodo.5601907) if you use this code:
 
 ```
 @software{reluMIP.2021,
