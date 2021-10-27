@@ -4,7 +4,7 @@
 ![](docs/reluMIP_methodology.svg)
 
 ## About
-With this package, you can generate mixed-integer linear programming (MIP) models of trained artifical neural networks (ANNs) using the rectified liner unit (ReLU) activation function. At the moment, only `tensorflow` sequential models are supported. Interfaces to either the `Pyomo` or `Gurobi` modelling environments are offered.
+With this package, you can generate mixed-integer linear programming (MIP) models of trained artificial neural networks (ANNs) using the rectified liner unit (ReLU) activation function. At the moment, only `TensorFlow` sequential models are supported. Interfaces to either the `Pyomo` or `Gurobi` modelling environments are offered.
 
 ReLU ANNs can be used to approximate complex functions from data. In order to embed these functions into optimization problems, strong formulations of the network are needed. This package employs progressive bound tightening procedures to produce MIP encodings for ReLU networks. This allows the user to embed complex and nonlinear functions into mixed-integer programs. Note that the training of ReLU ANNs is not part of this package and has to be done by the user beforehand. A number of illustrative examples are provided to showcase the functionality of this package.
 
