@@ -2,3 +2,6 @@ build/
 dist/
 *.egg-info/
 MANIFEST.in
+.ipynb_checkpoints
+.ipynb_interpreter
+__pycache__/
