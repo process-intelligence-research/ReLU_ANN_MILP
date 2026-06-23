@@ -51,6 +51,9 @@ Please cite [our Zenodo DOI](https://doi.org/10.5281/zenodo.5601907) if you use 
   version = {1.0.0}
 }
 ```
+## Copyright 
+
+Technische Universiteit Delft hereby disclaims all copyright interest in the program “pyDEXPI” - a Python tool for the DEXPI standard - written by Artur M. Schweidtmann. Paulien Herder, Dean of Applied Science
 
 ## References
 Grimstad, B., Andersson, H. (2019). [ReLU networks as surrogate models in mixed-integer linear programs](https://doi.org/10.1016/j.compchemeng.2019.106580). *Computers & Chemical Engineering* (Volume 131, 106580).<br><br>
